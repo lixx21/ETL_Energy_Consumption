@@ -14,9 +14,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;This is the step of ETL that I used:
 
 1. Extract
+
 &nbsp;&nbsp;&nbsp;&nbsp;Extract stage is used to extract data from data sources. Because in this database we only have one format of data, therefore I only use pandas library to extract data from csv into data frame and return that data frame.
 
 2. Transform
+
 &nbsp;&nbsp;&nbsp;&nbsp;In this transform stage, I used python to transform data to what I need, what I did is:
 
     - I remove the unnecessary columns. In this case I only used the column [Continent, Country, and the last column of the file].
@@ -25,6 +27,7 @@
     - After transform the values of the last column I create new data frame for transformed column and replace the old column with the new transformed column
 
 3. Load
+
 &nbsp;&nbsp;&nbsp;&nbsp;Load stage is used to load the data that has been transformed to the data warehouse or database. In this case I used PostgreSQL with docker image that I will explain more later in docker section. I used psycopg2 to help me connect python with PostgreSQL. Not just that, I also used argparse to help me create command arguments in python therefore, I can input csv file, database name, host name, username, password, and port of PostgreSQL flexibly.
 
 # How To Use
