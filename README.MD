@@ -9,6 +9,24 @@
 - [data dir](/data): contains all the data that is already downloaded from kaggel [Global Energy Statistics - Kaggle](https://www.kaggle.com/datasets/akhiljethwa/world-energy-statistics)
 - [etl dir](/etl): contains all python scripts that is used to do ETL
 
+# ETL (Extract, Transfrom and Load)
+
+&nbsp;&nbsp;&nbsp;&nbsp;This is the step of ETL that I used:
+
+1. Extract
+&nbsp;&nbsp;&nbsp;&nbsp;Extract stage is used to extract data from data sources. Because in this database we only have one format of data, therefore I only use pandas library to extract data from csv into data frame and return that data frame.
+
+2. Transform
+&nbsp;&nbsp;&nbsp;&nbsp;In this transform stage, I used python to transform data to what I need, what I did is:
+
+    - I remove the unnecessary columns. In this case I only used the column [Continent, Country, and the last column of the file].
+    - Remove missing values from the dataset using .dropna() function from pandas
+    - Because the data type of the last column is float and has many number after comma, then I transform to round up the value therefore the value only has 2 number after comma
+    - After transform the values of the last column I create new data frame for transformed column and replace the old column with the new transformed column
+
+3. Load
+&nbsp;&nbsp;&nbsp;&nbsp;Load stage is used to load the data that has been transformed to the data warehouse or database. In this case I used PostgreSQL with docker image that I will explain more later in docker section. I used psycopg2 to help me connect python with PostgreSQL. Not just that, I also used argparse to help me create command arguments in python therefore, I can input csv file, database name, host name, username, password, and port of PostgreSQL flexibly.
+
 # How To Use
 
 1. Clone this repository
@@ -30,9 +48,8 @@ Then you will see the IP of the connection
 or you can just use name of the container to connect each container
 ```
 
-**This is the image of your pgadmin connection**
-![image](https://user-images.githubusercontent.com/91602612/235394901-99968fc3-db33-42a8-846e-fb6de8f6295d.png)
-
+**This is the image of your pgadmin configuration**
+image.png
 
 8. install pgcli to see your PostgreSQL from command line ```pip install pgcli```
 9. Run this to access PostgreSQL from command line ```pgcli -h localhost -p 5432 -u postgres -d energy_consumption```
