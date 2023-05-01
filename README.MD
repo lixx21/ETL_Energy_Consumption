@@ -12,16 +12,32 @@
 # How To Use
 
 1. Clone this repository
-2. Pull postgres image from docker using this command line ```docker pull postgres```
-3. Run docker images using this command 
+2. Create volume name **etl_energy_consumption** with this command ```docker volume create etl_energy_consumption```
+3. PostgreSQL using this path to save their data in docker */var/lib/postgresql/data*. Therefore if you want to use volume then the path of your volume will be like this ```[your volume name]:/var/lib/postgresql/data```. So the volume will be like this ```etl_energy_consumption:/var/lib/postgresql``` 
+4. Pull postgres image from docker using this command line ```docker pull postgres```
+5. create network for docker by using this command line ```docker network create energy_consumption_network```
+6. Pull pgadmin in docker using this command line ```docker pull dpage/pgadmin4```
+7. Run docker compose using this command line ```docker-compose up -d```
+
 ```
-docker run -d 
-    --name simple_etl
-    -p 5434:5432
-    -e POSTGRES_PASSWORD=[your password]
-    postgres
+NOTE:
+If you want to connect docker with network you cannot used localhost, but you have to see the IP of the connection using:
+
+docker network inspect [network name]
+
+Then you will see the IP of the connection
+
+or you can just use name of the container to connect each container
 ```
-4. Run this to access PostgreSQL from command line ```docker exec -it simple_etl psql -U postgres```
-5. Create database using this command ```create database energy_consumption;```
-6. Go to [etl dir](/etl) and run ```python load.py -f [file path]```
-7. Then ETL process will completed 👍👨🏻‍💻
+
+**This is the image of your pgadmin configuration**
+image.png
+
+8. install pgcli to see your PostgreSQL from command line ```pip install pgcli```
+9. Run this to access PostgreSQL from command line ```pgcli -h localhost -p 5432 -u postgres -d energy_consumption```
+10. Build image for our etl script by running this command ```docker build -t python-etl .```
+11. Go to [etl dir](/etl) and run 
+```
+docker run -it --network=energy_consumption_network python-etl -f [file-path] -db energy_consumption -hs localhost -u postgres -pass 123456 -p 5432
+```
+12. Then ETL process will completed 👍👨🏻‍💻
