@@ -52,7 +52,8 @@ or you can just use name of the container to connect each container
 ```
 
 **This is the image of your pgadmin configuration**
-image.png
+
+![image](https://user-images.githubusercontent.com/91602612/235428293-854675ce-d84d-4b74-99a0-f36b05ab0b52.png)
 
 8. install pgcli to see your PostgreSQL from command line ```pip install pgcli```
 9. Run this to access PostgreSQL from command line ```pgcli -h localhost -p 5432 -u postgres -d energy_consumption```
