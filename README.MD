@@ -30,8 +30,9 @@ Then you will see the IP of the connection
 or you can just use name of the container to connect each container
 ```
 
-**This is the image of your pgadmin configuration**
-image.png
+**This is the image of your pgadmin connection**
+![image](https://user-images.githubusercontent.com/91602612/235394901-99968fc3-db33-42a8-846e-fb6de8f6295d.png)
+
 
 8. install pgcli to see your PostgreSQL from command line ```pip install pgcli```
 9. Run this to access PostgreSQL from command line ```pgcli -h localhost -p 5432 -u postgres -d energy_consumption```
